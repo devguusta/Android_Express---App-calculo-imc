@@ -17,41 +17,30 @@
         >
 
         <TextView
+            style="@style/TextViewForm"
             android:text="@string/imc_desc"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="40dp"
-            android:layout_marginStart="30dp"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            style="@style/EditTextForm"
             android:id="@+id/edit_imc_weight"
-            android:maxLength="3"
-            android:inputType="number"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
             android:hint="@string/weight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
+            />
 
         <EditText
+            style="@style/EditTextForm"
             android:id="@+id/edit_imc_height"
-            android:maxLength="3"
-            android:inputType="number"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="40dp"
             android:hint="@string/height"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+           />
 
         <Button
+            style="@style/ButtonForm"
             android:id="@+id/btn_imc_send"
-
             android:text="@string/calc"
-            android:textColor="@android:color/white"
-            android:background="@color/teal_200"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
+
+            />
 
 
     </LinearLayout>
