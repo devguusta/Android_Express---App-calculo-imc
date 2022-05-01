@@ -2,6 +2,7 @@ package com.example.fitnnes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         mainItens.add(new MainItem(2, R.drawable.ic_baseline_visibility_24, R.string.tmb, Color.RED));
 
 
-        rvMain.setLayoutManager(new LinearLayoutManager(this));
+
+        rvMain.setLayoutManager(new GridLayoutManager(this, 2));
 
         MainAdapter adapter = new MainAdapter(mainItens);
         rvMain.setAdapter(adapter);
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         public void bind(MainItem item){
             TextView textView =    itemView.findViewById(R.id.item_txt_name);
             ImageView imageView =    itemView.findViewById(R.id.item_img_icon);
-            LinearLayout container  = (LinearLayout)  itemView;
+            LinearLayout container  = (LinearLayout)  itemView.findViewById(R.id.btn_imc);
             textView.setText(item.getTextStringId());
             imageView.setImageResource(item.getDrawableId());
             container.setBackgroundColor(item.getColor());
