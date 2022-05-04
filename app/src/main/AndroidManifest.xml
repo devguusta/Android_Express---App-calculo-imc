@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fitnnes">
         <activity
+            android:name=".TmbActivity"
+            android:exported="true" />
+        <activity
             android:name=".ImcActivity"
             android:exported="true" />
         <activity

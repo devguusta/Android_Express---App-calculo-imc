@@ -3,9 +3,8 @@ package com.example.fitnnes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,17 +19,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView rvMain;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        View btnImc = findViewById(R.id.btn_imc);
 
-        rvMain = findViewById(R.id.main_rv);
+        RecyclerView rvMain = findViewById(R.id.main_rv);
 
         List<MainItem> mainItens = new ArrayList<MainItem>();
         mainItens.add(new MainItem(1, R.drawable.ic_baseline_wb_sunny_24, R.string.imc, Color.GREEN));
@@ -41,24 +37,37 @@ public class MainActivity extends AppCompatActivity {
         rvMain.setLayoutManager(new GridLayoutManager(this, 2));
 
         MainAdapter adapter = new MainAdapter(mainItens);
+
         rvMain.setAdapter(adapter);
-//        btnImc.setOnClickListener(view -> {
-//            Intent intent = new Intent(MainActivity.this, ImcActivity.class);
-//            startActivity(intent);
-//
-//        });
+        adapter.setListener(id -> {
+            switch (id){
+                case 1:
+
+                    startActivity(new Intent(MainActivity.this, ImcActivity.class));
+
+                    break;
+                case 2:
+                    startActivity( new Intent(MainActivity.this, TmbActivity.class));
+                    break;
+            }
+        });
+
 
 
     }
 
-    private class MainAdapter extends RecyclerView.Adapter<MainViewHolder>{
+    private class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder>{
 
         private List<MainItem> mainItems;
+        private OnItemClickListener listener;
 
         public MainAdapter(List<MainItem> mainItems){
             this.mainItems = mainItems;
         }
 
+        public void setListener(OnItemClickListener listener) {
+            this.listener = listener;
+        }
 
         @NonNull
         @Override
@@ -76,23 +85,33 @@ public class MainActivity extends AppCompatActivity {
         public int getItemCount() {
             return mainItems.size();
         }
+
+
+        private class MainViewHolder extends RecyclerView.ViewHolder{
+            public MainViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+            }
+
+            public void bind(MainItem item){
+
+
+                TextView textView =    itemView.findViewById(R.id.item_txt_name);
+                ImageView imageView =    itemView.findViewById(R.id.item_img_icon);
+                LinearLayout btnImc  = (LinearLayout)  itemView.findViewById(R.id.btn_imc);
+                btnImc.setOnClickListener(view -> {
+                    listener.onClick(item.getId());
+
+
+                });
+                textView.setText(item.getTextStringId());
+                imageView.setImageResource(item.getDrawableId());
+                btnImc.setBackgroundColor(item.getColor());
+            }
+
+        }
     }
 
 
-    private class MainViewHolder extends RecyclerView.ViewHolder{
-        public MainViewHolder(@NonNull View itemView) {
-            super(itemView);
 
-        }
-
-        public void bind(MainItem item){
-            TextView textView =    itemView.findViewById(R.id.item_txt_name);
-            ImageView imageView =    itemView.findViewById(R.id.item_img_icon);
-            LinearLayout container  = (LinearLayout)  itemView.findViewById(R.id.btn_imc);
-            textView.setText(item.getTextStringId());
-            imageView.setImageResource(item.getDrawableId());
-            container.setBackgroundColor(item.getColor());
-        }
-
-    }
 }
